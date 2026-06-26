@@ -1,0 +1,26 @@
+# SmartFarm Auth — Python kutubxonalari
+
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+
+# Auth & Security
+python-jose[cryptography]==3.3.0   # JWT
+passlib[bcrypt]==1.7.4             # Parol xeshlash
+python-multipart==0.0.12           # Form data
+
+# HTTP client (OAuth token exchange)
+httpx==0.27.2
+
+# Rate limiting
+slowapi==0.1.9
+
+# Environment variables
+python-dotenv==1.0.1
+
+# Data validation
+pydantic[email]==2.9.2
+
+# Streamlit (asosiy app uchun allaqachon o'rnatilgan bo'lishi kerak)
+# streamlit>=1.38.0
+# requests>=2.32.0

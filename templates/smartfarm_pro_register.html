@@ -1,0 +1,769 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+--g1:#00ff88;--g2:#00d4ff;--g3:#7c3aed;--g4:#f59e0b;
+--dark:#060d1a;--dark2:#0a1628;--dark3:#0f1f35;
+--card:#ffffff08;--border:rgba(255,255,255,0.08);
+--text:#f0f6ff;--muted:rgba(240,246,255,0.45);
+}
+
+.root{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  min-height:100vh;background:var(--dark);
+  display:flex;overflow:hidden;position:relative;
+  color:var(--text);
+}
+
+/* ---- ANIMATED BACKGROUND ---- */
+.bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  animation:orbFloat 8s ease-in-out infinite;
+}
+.orb1{width:600px;height:600px;top:-200px;left:-150px;
+  background:radial-gradient(circle,rgba(0,255,136,0.12),transparent 70%);
+  animation-delay:0s}
+.orb2{width:500px;height:500px;top:30%;right:-200px;
+  background:radial-gradient(circle,rgba(0,212,255,0.1),transparent 70%);
+  animation-delay:-3s}
+.orb3{width:400px;height:400px;bottom:-100px;left:30%;
+  background:radial-gradient(circle,rgba(124,58,237,0.12),transparent 70%);
+  animation-delay:-6s}
+
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(30px,-40px) scale(1.05)}
+  66%{transform:translate(-20px,20px) scale(0.95)}
+}
+
+.grid-overlay{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridDrift 20s linear infinite;
+}
+@keyframes gridDrift{
+  0%{background-position:0 0}
+  100%{background-position:60px 60px}
+}
+
+/* particles */
+.particle{
+  position:absolute;border-radius:50%;
+  animation:particleAnim linear infinite;
+}
+@keyframes particleAnim{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:0.6}
+  100%{transform:translateY(-10vh) scale(1);opacity:0}
+}
+
+/* ---- LEFT PANEL ---- */
+.left{
+  width:48%;flex-shrink:0;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  padding:52px;
+  position:relative;
+  border-right:1px solid rgba(0,255,136,0.08);
+}
+
+/* scan line */
+.scan{
+  position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,255,136,0.4),transparent);
+  animation:scan 4s ease-in-out infinite;top:0;
+}
+@keyframes scan{
+  0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}
+}
+
+.logo-row{display:flex;align-items:center;gap:14px;z-index:1;position:relative}
+
+.logo-box{
+  width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,#00ff88,#00d4ff);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 30px rgba(0,255,136,0.3);
+}
+.logo-box::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 50%,rgba(255,255,255,0.15));
+}
+
+.brand-name{
+  font-family:'Clash Display',sans-serif;
+  font-size:17px;font-weight:700;color:var(--text);
+  letter-spacing:-0.3px;
+}
+.brand-tag{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  background:linear-gradient(90deg,#00ff88,#00d4ff);
+  -webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent;
+  font-weight:600;
+}
+
+/* hero */
+.hero{position:relative;z-index:1}
+
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(0,255,136,0.2);
+  background:rgba(0,255,136,0.06);
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;color:#00ff88;
+  margin-bottom:28px;letter-spacing:0.5px;
+  backdrop-filter:blur(10px);
+}
+.badge-dot{
+  width:7px;height:7px;background:#00ff88;border-radius:50%;
+  box-shadow:0 0 8px #00ff88;
+  animation:glow 1.5s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 4px #00ff88;transform:scale(1)}
+  50%{box-shadow:0 0 14px #00ff88;transform:scale(1.3)}
+}
+
+.hero-title{
+  font-family:'Clash Display',sans-serif;
+  font-size:52px;font-weight:700;
+  line-height:1.05;letter-spacing:-2px;
+  color:var(--text);margin-bottom:20px;
+}
+.hero-title .accent{
+  background:linear-gradient(135deg,#00ff88 0%,#00d4ff 50%,#7c3aed 100%);
+  -webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent;
+  background-size:200% 200%;
+  animation:gradShift 4s ease infinite;
+}
+@keyframes gradShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.hero-desc{
+  font-size:14px;color:var(--muted);
+  line-height:1.8;max-width:340px;font-weight:300;
+}
+
+/* feature cards */
+.feat-grid{
+  display:flex;flex-direction:column;gap:10px;
+  position:relative;z-index:1;
+}
+
+.feat-card{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;padding:14px 18px;
+  transition:all 0.3s;cursor:default;
+  animation:fadeSlideIn 0.6s ease both;
+}
+.feat-card:hover{
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(0,255,136,0.15);
+  transform:translateX(6px);
+}
+.feat-card:nth-child(1){animation-delay:0.1s}
+.feat-card:nth-child(2){animation-delay:0.2s}
+.feat-card:nth-child(3){animation-delay:0.3s}
+
+@keyframes fadeSlideIn{
+  from{opacity:0;transform:translateX(-20px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+.feat-icon{
+  width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:18px;
+}
+.feat-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+.feat-sub{font-size:11px;color:var(--muted)}
+
+/* stats */
+.stats-row{
+  display:flex;gap:0;position:relative;z-index:1;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:16px;overflow:hidden;
+  background:rgba(255,255,255,0.02);
+}
+.stat{
+  flex:1;padding:16px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.stat:last-child{border-right:none}
+.stat-val{
+  font-family:'Clash Display',sans-serif;
+  font-size:24px;font-weight:700;
+  background:linear-gradient(135deg,#00ff88,#00d4ff);
+  -webkit-background-clip:text; background-clip: text; -webkit-text-fill-color:transparent;
+}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:0.8px}
+
+/* ---- RIGHT PANEL ---- */
+.right{
+  flex:1;display:flex;align-items:center;
+  justify-content:center;padding:40px 52px;
+  position:relative;z-index:1;
+}
+
+.form-wrap{width:100%;max-width:430px}
+
+/* progress */
+.progress-header{margin-bottom:32px}
+
+.step-labels{
+  display:flex;gap:0;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;overflow:hidden;
+  margin-bottom:24px;
+  background:rgba(255,255,255,0.02);
+}
+.step-lbl{
+  flex:1;padding:10px 6px;text-align:center;
+  font-size:11px;color:var(--muted);
+  border-right:1px solid rgba(255,255,255,0.07);
+  transition:all 0.3s;cursor:pointer;letter-spacing:0.3px;
+}
+.step-lbl:last-child{border-right:none}
+.step-lbl.active{
+  background:rgba(0,255,136,0.08);
+  color:#00ff88;font-weight:600;
+}
+.step-lbl.done{
+  background:rgba(0,255,136,0.04);
+  color:rgba(0,255,136,0.5);
+}
+
+.form-title{
+  font-family:'Clash Display',sans-serif;
+  font-size:30px;font-weight:700;
+  letter-spacing:-0.8px;color:var(--text);
+  margin-bottom:6px;
+}
+.form-sub{
+  font-size:13px;color:var(--muted);
+}
+.form-sub a{
+  color:#00d4ff;text-decoration:none;font-weight:500;
+}
+.form-sub a:hover{color:#00ff88}
+
+/* fields */
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{margin-bottom:16px}
+
+.lbl{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;
+  color:rgba(240,246,255,0.4);
+  text-transform:uppercase;letter-spacing:0.8px;
+  margin-bottom:7px;
+}
+.lbl-dot{width:5px;height:5px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00d4ff)}
+
+.inp{
+  width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:12px 16px;
+  font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--text);outline:none;
+  transition:all 0.25s;
+}
+.inp::placeholder{color:rgba(240,246,255,0.18)}
+.inp:hover{border-color:rgba(255,255,255,0.14);background:rgba(255,255,255,0.05)}
+.inp:focus{
+  border-color:rgba(0,255,136,0.4);
+  background:rgba(0,255,136,0.04);
+  box-shadow:0 0 0 3px rgba(0,255,136,0.06),0 0 20px rgba(0,255,136,0.05);
+}
+.inp.error{border-color:rgba(239,68,68,0.5);background:rgba(239,68,68,0.04)}
+
+.sel{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2300ff88' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;cursor:pointer;
+}
+.sel option{background:#0a1628;color:var(--text)}
+
+.pw-wrap{position:relative}
+.pw-wrap .inp{padding-right:46px}
+.eye-btn{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:rgba(240,246,255,0.25);padding:4px;
+  transition:color 0.2s;display:flex;
+}
+.eye-btn:hover{color:#00ff88}
+
+/* password strength */
+.strength-row{display:flex;gap:3px;margin-top:6px}
+.sbar{
+  flex:1;height:3px;border-radius:10px;
+  background:rgba(255,255,255,0.07);
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.sbar.w{background:#ef4444;box-shadow:0 0 8px rgba(239,68,68,0.4)}
+.sbar.m{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,0.4)}
+.sbar.s{background:#00ff88;box-shadow:0 0 8px rgba(0,255,136,0.4)}
+.slabel{font-size:11px;margin-top:4px;color:var(--muted);transition:color 0.3s}
+
+/* terms */
+.terms{
+  display:flex;align-items:flex-start;gap:10px;
+  margin-bottom:20px;padding:12px 14px;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;background:rgba(255,255,255,0.02);
+}
+.chk{
+  width:17px;height:17px;accent-color:#00ff88;
+  flex-shrink:0;margin-top:1px;cursor:pointer;
+}
+.terms-txt{font-size:12px;color:var(--muted);line-height:1.6}
+.terms-txt a{color:#00d4ff;text-decoration:none}
+
+/* main button */
+.btn-main{
+  width:100%;padding:15px;border:none;
+  border-radius:14px;cursor:pointer;
+  font-family:'Clash Display',sans-serif;
+  font-size:16px;font-weight:700;
+  letter-spacing:0.3px;color:#060d1a;
+  background:linear-gradient(135deg,#00ff88 0%,#00d4ff 50%,#7c3aed 100%);
+  background-size:200% 200%;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  animation:btnPulse 3s ease-in-out infinite;
+}
+@keyframes btnPulse{
+  0%,100%{background-position:0% 50%;box-shadow:0 4px 30px rgba(0,255,136,0.25)}
+  50%{background-position:100% 50%;box-shadow:0 4px 40px rgba(0,212,255,0.35)}
+}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(0,255,136,0.4)!important}
+.btn-main:active{transform:scale(0.98) translateY(0)}
+.btn-main::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 50%,rgba(255,255,255,0.15));
+  pointer-events:none;
+}
+
+.btn-shimmer{
+  position:absolute;top:0;left:-100%;width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer{0%{left:-100%}60%,100%{left:200%}}
+
+/* divider */
+.divider{
+  display:flex;align-items:center;gap:14px;
+  margin:18px 0;
+}
+.div-line{
+  flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+}
+.div-txt{font-size:11px;color:rgba(240,246,255,0.25);letter-spacing:1px}
+
+/* social */
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.social-btn{
+  padding:11px;cursor:pointer;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  color:rgba(240,246,255,0.55);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:13px;font-weight:500;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all 0.25s;
+}
+.social-btn:hover{
+  border-color:rgba(0,255,136,0.2);
+  background:rgba(0,255,136,0.05);
+  color:var(--text);
+  transform:translateY(-1px);
+  box-shadow:0 4px 20px rgba(0,255,136,0.1);
+}
+
+/* toast */
+.toast{
+  position:fixed;top:24px;right:24px;z-index:999;
+  display:flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#0a1628,#0f1f35);
+  border:1px solid rgba(0,255,136,0.3);
+  border-radius:16px;padding:16px 22px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 30px rgba(0,255,136,0.08);
+  transform:translateX(120%);opacity:0;
+  transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  max-width:320px;
+}
+.toast.show{transform:translateX(0);opacity:1}
+.toast-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,#00ff88,#00d4ff);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:#060d1a;font-weight:700;
+  box-shadow:0 0 20px rgba(0,255,136,0.4);
+}
+.toast-title{font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px}
+.toast-sub{font-size:12px;color:var(--muted)}
+
+/* cursor glow */
+.cursor-glow{
+  position:fixed;width:300px;height:300px;
+  border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(0,255,136,0.04),transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:left 0.1s,top 0.1s;
+}
+
+@media(max-width:800px){
+  .left{display:none}
+  .right{padding:28px 20px}
+}
+</style>
+
+<div class="cursor-glow" id="cg"></div>
+
+<div class="root">
+  <div class="bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="grid-overlay"></div>
+    <canvas id="particles-canvas" style="position:absolute;inset:0;pointer-events:none"></canvas>
+  </div>
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="scan"></div>
+
+    <div class="logo-row">
+      <div class="logo-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L17 8.5H7L12 2Z" fill="#060d1a" opacity="0.8"/>
+          <path d="M7 8.5C5 10 4 12 4 14C4 18.4 7.6 22 12 22C16.4 22 20 18.4 20 14C20 12 19 10 17 8.5H7Z" fill="#060d1a" opacity="0.9"/>
+          <circle cx="12" cy="14" r="3.5" fill="#00ff88"/>
+          <path d="M9.5 10.5L12 8L14.5 10.5" stroke="#00ff88" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">SmartFarm AI</div>
+        <div class="brand-tag">Aqlli Ferma Tizimi</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Real-vaqt monitoring · AI tahlil
+      </div>
+      <h1 class="hero-title">
+        Kelajak<br>fermasi<br><span class="accent">bugun boshlanadi</span>
+      </h1>
+      <p class="hero-desc">
+        Sun'iy intellekt, IoT sensorlari va real-vaqt tahlili yordamida fermangizni avtomatlashtiring va daromadingizni ikki baravar oshiring.
+      </p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(0,255,136,0.1)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="1.8" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4" stroke="#00ff88"/></svg>
+        </div>
+        <div>
+          <div class="feat-title">AI Hosil Bashorati</div>
+          <div class="feat-sub">97% aniqlik bilan prognoz</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(0,212,255,0.1)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
+        </div>
+        <div>
+          <div class="feat-title">Smart Sug'orish</div>
+          <div class="feat-sub">40% suv tejash</div>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(124,58,237,0.1)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div class="feat-title">Kafolatli Xavfsizlik</div>
+          <div class="feat-sub">256-bit shifrlash</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-val">+43%</div>
+        <div class="stat-lbl">Hosil oshishi</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">12K+</div>
+        <div class="stat-lbl">Fermerlar</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">180+</div>
+        <div class="stat-lbl">Viloyatlar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="form-wrap">
+
+      <div class="step-labels">
+        <div class="step-lbl active" id="sl1">01 Hisob</div>
+        <div class="step-lbl" id="sl2">02 Ferma</div>
+        <div class="step-lbl" id="sl3">03 Tasdiq</div>
+      </div>
+
+      <div class="progress-header">
+        <div class="form-title">Hisob yarating</div>
+        <div class="form-sub">Allaqachon a'zo? <a href="#" onclick="return false">Kirish &rarr;</a></div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <div class="lbl"><div class="lbl-dot"></div>Ism</div>
+          <input class="inp" id="fn" type="text" placeholder="Sardor" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <div class="lbl"><div class="lbl-dot" style="background:linear-gradient(135deg,#00d4ff,#7c3aed)"></div>Familiya</div>
+          <input class="inp" id="ln" type="text" placeholder="Umarov" autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="lbl"><div class="lbl-dot" style="background:linear-gradient(135deg,#7c3aed,#f59e0b)"></div>Email manzil</div>
+        <input class="inp" id="em" type="email" placeholder="sardor@ferma.uz" autocomplete="email">
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <div class="lbl"><div class="lbl-dot" style="background:#f59e0b"></div>Telefon</div>
+          <input class="inp" id="ph" type="tel" placeholder="+998 90 000 00 00">
+        </div>
+        <div class="field">
+          <div class="lbl"><div class="lbl-dot" style="background:#00d4ff"></div>Ferma turi</div>
+          <select class="inp sel" id="ft">
+            <option value="" disabled selected>Tanlang...</option>
+            <option>G'alla fermasi</option>
+            <option>Sabzavot fermasi</option>
+            <option>Chorvachilik</option>
+            <option>Bog'dorchilik</option>
+            <option>Parrandachilik</option>
+            <option>Aralash ferma</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="lbl"><div class="lbl-dot" style="background:linear-gradient(135deg,#00ff88,#00d4ff)"></div>Parol</div>
+        <div class="pw-wrap">
+          <input class="inp" id="pw" type="password" placeholder="Kamida 8 ta belgi" oninput="chkPw(this.value)">
+          <button class="eye-btn" onclick="togglePw()" type="button" id="eyeB">
+            <svg id="eyeOpen" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="eyeClose" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="strength-row">
+          <div class="sbar" id="sb1"></div>
+          <div class="sbar" id="sb2"></div>
+          <div class="sbar" id="sb3"></div>
+          <div class="sbar" id="sb4"></div>
+        </div>
+        <div class="slabel" id="slbl">Xavfsiz parol tanlang</div>
+      </div>
+
+      <div class="terms">
+        <input class="chk" type="checkbox" id="ck">
+        <label for="ck" class="terms-txt">
+          <a href="#">Foydalanish shartlari</a>, <a href="#">Maxfiylik siyosati</a> va <a href="#">Ma'lumotlar himoyasi</a>ga roziman
+        </label>
+      </div>
+
+      <button class="btn-main" onclick="doReg()" id="regBtn">
+        <div class="btn-shimmer"></div>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.55 20a19.45 19.45 0 0 1-6-6A19.79 19.79 0 0 1 3.12 5.18 2 2 0 0 1 5.09 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.91 10.09a16 16 0 0 0 6 6"/></svg>
+        Ro'yxatdan o'tish
+      </button>
+
+      <div class="divider">
+        <div class="div-line"></div>
+        <span class="div-txt">YOKI</span>
+        <div class="div-line"></div>
+      </div>
+
+      <div class="social-grid">
+        <button class="social-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66 2.84-.81-.62-.38-.14z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Google
+        </button>
+        <button class="social-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(240,246,255,0.7)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>
+          Apple ID
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✓</div>
+  <div>
+    <div class="toast-title">Muvaffaqiyatli ro'yxatdan o'tdingiz!</div>
+    <div class="toast-sub">Dashboard yuklanmoqda...</div>
+  </div>
+</div>
+
+<script>
+/* cursor glow */
+const cg=document.getElementById('cg');
+document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px'});
+
+/* particles */
+const canvas=document.getElementById('particles-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight}
+resize();window.addEventListener('resize',resize);
+
+function mkPt(){
+  const colors=['rgba(0,255,136','rgba(0,212,255','rgba(124,58,237'];
+  const c=colors[Math.floor(Math.random()*colors.length)];
+  return{
+    x:Math.random()*W,y:H+10,
+    vx:(Math.random()-0.5)*0.4,vy:-(0.3+Math.random()*0.7),
+    r:1+Math.random()*2.5,
+    color:c,opacity:0,maxOp:0.4+Math.random()*0.4,
+    life:0,maxLife:200+Math.random()*300
+  }
+}
+
+for(let i=0;i<30;i++){pts.push(mkPt());pts[i].y=Math.random()*H;pts[i].life=Math.random()*pts[i].maxLife}
+
+function animParticles(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy;p.life++;
+    const t=p.life/p.maxLife;
+    p.opacity=t<0.1?t*10*p.maxOp:t>0.85?(1-t)*6.67*p.maxOp:p.maxOp;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.color+','+p.opacity+')';
+    ctx.fill();
+    if(p.life>=p.maxLife||p.y<-10){pts[i]=mkPt()}
+  });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+/* password */
+function togglePw(){
+  const i=document.getElementById('pw');
+  const open=document.getElementById('eyeOpen');
+  const close=document.getElementById('eyeClose');
+  if(i.type==='password'){
+    i.type='text';open.style.display='none';close.style.display='block';
+    document.getElementById('eyeB').style.color='#00ff88';
+  }else{
+    i.type='password';open.style.display='block';close.style.display='none';
+    document.getElementById('eyeB').style.color='';
+  }
+}
+
+function chkPw(v){
+  const bars=['sb1','sb2','sb3','sb4'];
+  bars.forEach(b=>{document.getElementById(b).className='sbar'});
+  const lbl=document.getElementById('slbl');
+  if(!v){lbl.textContent='Xavfsiz parol tanlang';lbl.style.color='';return}
+  let sc=0;
+  if(v.length>=8)sc++;
+  if(/[A-Z]/.test(v))sc++;
+  if(/[0-9]/.test(v))sc++;
+  if(/[^A-Za-z0-9]/.test(v))sc++;
+  const cls=sc<=1?'w':sc<=2?'m':'s';
+  const lbls=['','Juda zaif','Zaif','O\'rtacha','Kuchli 🔒'];
+  const clrs=['','#ef4444','#f59e0b','#00ff88','#00ff88'];
+  for(let i=0;i<sc;i++)document.getElementById(bars[i]).classList.add(cls);
+  lbl.textContent=lbls[sc]||'';lbl.style.color=clrs[sc]||'';
+}
+
+/* register */
+function doReg() {
+  const f = v => document.getElementById(v).value.trim();
+  const data = {
+    first_name: f('fn'),
+    last_name: f('ln'),
+    email: f('em'),
+    phone: f('ph'),
+    farm_type: f('ft'),
+    password: f('pw')
+  };
+
+  // Validatsiya (o'zingizni kodingizdan foydalanamiz)
+  if (!data.first_name || !data.email || !data.password) {
+    shake(); return;
+  }
+
+  // Backend (Python) ga yuborish
+  fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(res => {
+    if (res.status === 'success') {
+      const btn = document.getElementById('regBtn');
+      btn.innerHTML = '✓ Muvaffaqiyatli!';
+      document.getElementById('toast').classList.add('show');
+      
+      // 2 soniyadan so'ng Streamlit Dashboard-ga yo'naltirish
+      setTimeout(() => {
+        window.location.href = "http://localhost:8501";
+      }, 2000);
+    }
+  });
+}
+
+function shake(){
+  const f=document.querySelector('.form-wrap');
+  f.style.animation='none';f.offsetHeight;
+  const s=document.createElement('style');
+  s.textContent='@keyframes sk{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}';
+  document.head.appendChild(s);
+  f.style.animation='sk 0.4s ease';
+}
+
+/* input focus light effect */
+document.querySelectorAll('.inp').forEach(inp=>{
+  inp.addEventListener('focus',()=>{
+    inp.style.transition='all 0.3s';
+  });
+});
+</script>
