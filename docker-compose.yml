@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  crop-app:
+    build: .
+    container_name: crop_ai_app
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+
